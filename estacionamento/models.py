@@ -39,7 +39,7 @@ class Cliente(models.Model):
         return self.nomeMae
         return self.email
 
-class Vendedor(models.Model):
+class Funcionario(models.Model):
     cpf = models.CharField(max_length=11)
     nome = models.CharField(max_length=100)
     salario = models.CharField(max_length=10)
@@ -91,3 +91,16 @@ class Vagas(models.Model):
     def __str__(self):
         return self._id
         return setf.descricao
+
+class Locacao(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
+    carro = models.ForeignKey(Carro, on_delete=models.SET_NULL, null=True)
+    funcionario = models.ForeignKey(Funcionario, on_delete=models.SET_NULL, null=True)
+    dataLocacao = models.DateField()
+    valor = models.CharField(max_length=10)
+    dataDevolucao = models.DateField()
+
+    def __str__(self):
+        return self.dataLocacao + self.valor + self.dataDevolucao
+
+
